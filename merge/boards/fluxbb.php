@@ -22,21 +22,21 @@ class FLUXBB_Converter extends Converter
 	 * @var string
 	 */
 	var $bbname = "FluxBB 1.5";
-	
+
 	/**
 	 * String of the plain bulletin board name
 	 *
 	 * @var string
 	 */
 	var $plain_bbname = "FluxBB 1";
-	
+
 	/**
 	 * Whether or not this module requires the loginconvert.php plugin
 	 *
 	 * @var boolean
 	 */
 	var $requires_loginconvert = true;
-	
+
 	/**
 	 * Array of all of the modules
 	 *
@@ -50,10 +50,11 @@ class FLUXBB_Converter extends Converter
 						 "import_forumperms" => array("name" => "Forum Permissions", "dependencies" => "db_configuration,import_forums"),
 						 "import_threads" => array("name" => "Threads", "dependencies" => "db_configuration,import_forums"),
 						 "import_posts" => array("name" => "Posts", "dependencies" => "db_configuration,import_threads"),
+						 "import_privatemessages" => array("name" => "Private Messages", "dependencies" => "db_configuration,import_users"),
 						 "import_settings" => array("name" => "Settings", "dependencies" => "db_configuration"),
 						 "import_avatars" => array("name" => "Avatars", "dependencies" => "db_configuration,import_users"),
 						);
-	
+
 	/**
 	 * The table we check to verify it's "our" database
 	 *
@@ -95,14 +96,12 @@ class FLUXBB_Converter extends Converter
 				'id' => 0,
 			);
 		}
-	
+
 		$query = $this->old_db->simple_select("users", "id, username", "username = '".$this->old_db->escape_string($username)."'", array('limit' => 1));
-		
+
 		$results = $this->old_db->fetch_array($query);
 		$this->old_db->free_result($query);
-		
+
 		return $results;
 	}
 }
-
-
