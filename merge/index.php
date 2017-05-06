@@ -709,7 +709,9 @@ elseif(isset($mybb->input['action']) && $mybb->input['action'] == 'finish')
 	echo "<br />\n {$lang->cleanup_notice} \n";
 	flush();
 
-	delete_import_fields();
+	//Do not delete the import fields, because we need them for future redirects!
+	// --schmatzler
+	//delete_import_fields();
 
 	$cache->update_attachtypes();
 	$output->update_progress_bar(10);
@@ -1024,4 +1026,3 @@ else
 
 	$output->module_list();
 }
-
